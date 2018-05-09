@@ -221,7 +221,7 @@ public class HttpClient {
 			return body;
 		} else {
 			logger.error("请求失败 : " + response.getStatusLine().getReasonPhrase());
-			throw new HttpException(response.getStatusLine().getReasonPhrase());
+			throw new HttpException("http响应码：" + response.getStatusLine().getStatusCode() + "，原因：" + response.getStatusLine().getReasonPhrase());
 		}
 	}
 	
@@ -419,5 +419,11 @@ public class HttpClient {
 	}
 
 	public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+		
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(2);
+		
+		System.out.println(list.toString());
 	}
 }
