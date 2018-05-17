@@ -333,9 +333,11 @@ public class HttpClient {
 			}
 		}
 		
-		StringEntity jsonentity = new StringEntity(jsonStr,"UTF-8");
-		jsonentity.setContentType("application/json;chartSet=UTF-8");
-		httpPost.setEntity(jsonentity);
+		if(null != jsonStr){
+			StringEntity jsonentity = new StringEntity(jsonStr,"UTF-8");
+			jsonentity.setContentType("application/json;chartSet=UTF-8");
+			httpPost.setEntity(jsonentity);	
+		}
 
 		logger.info("请求地址：" + url);
 		// 执行请求操作，并拿到结果（同步阻塞）
