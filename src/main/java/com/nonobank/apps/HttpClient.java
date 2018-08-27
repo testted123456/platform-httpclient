@@ -47,6 +47,8 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class HttpClient {
 	public static Logger logger = LoggerFactory.getLogger(HttpClient.class);
 
@@ -361,11 +363,18 @@ public class HttpClient {
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 		if (map != null) {
 			for (Entry<String, String> entry : map.entrySet()) {
-				nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+				String v = null;
+				if(entry.getValue() != v){
+					v = String.valueOf(entry.getValue());
+				}
+				nvps.add(new BasicNameValuePair(entry.getKey(), v));
 			}
 		}
 		// 设置参数到请求对象中
 		httpPost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
+//		httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+		HttpEntity entity = new UrlEncodedFormEntity(nvps);
+		System.out.println("+++++"+entity.toString());
 		logger.info("请求地址：" + url);
 		logger.info("请求参数：" + nvps.toString());
 		// 设置header信息
@@ -427,5 +436,9 @@ public class HttpClient {
 		list.add(2);
 		
 		System.out.println(list.toString());
+		
+		JSONObject json = new JSONObject();
+		json.put("k", "v");
+		System.out.println(String.valueOf(null));
 	}
 }
